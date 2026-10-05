@@ -1,0 +1,86 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "testpilot",
+      "email": "pilot@example.com",
+      "passwordHash": "$2a$12$YzaPDfaFxbL40pVEDxFEouU.zTZFIb4AiF1DuqS/SwXJCRowDu//2",
+      "displayName": "Test Pilot",
+      "createdAt": "2026-09-15T21:14:28.757Z",
+      "updatedAt": "2026-09-15T21:14:28.757Z",
+      "isLocked": false,
+      "lockedUntil": null
+    },
+    {
+      "id": 2,
+      "username": "asdf",
+      "email": "asdf@gmail.com",
+      "passwordHash": "$2a$12$DSaRjT8UO9K5lVHpADWLgu/FeWIQPDVWIBns5MMV3APJCTNpvDgou",
+      "displayName": "asdf",
+      "createdAt": "2026-09-16T08:46:23.958Z",
+      "updatedAt": "2026-09-16T08:46:23.958Z",
+      "isLocked": false,
+      "lockedUntil": null
+    },
+    {
+      "id": 3,
+      "username": "asdfghjkl",
+      "email": "asdfghjkl@gmail.com",
+      "passwordHash": "$2a$12$DiJk4PkozofQHucilso8GeQoPBtsLj6dbkowx3/a6xZ67bORxgYSu",
+      "displayName": "asdfghjkl",
+      "createdAt": "2026-09-20T09:06:03.315Z",
+      "updatedAt": "2026-09-20T09:06:03.315Z",
+      "isLocked": false,
+      "lockedUntil": null
+    },
+    {
+      "id": 4,
+      "username": "james23",
+      "email": "jbshah24@gmail.com",
+      "passwordHash": "$2a$12$7x3BBimVUF88igdQVWYvuuqZRYEGoDYOtiqFg9i5ySBun.GLoNwJm",
+      "displayName": "james",
+      "createdAt": "2026-09-21T07:58:29.255Z",
+      "updatedAt": "2026-09-21T07:58:29.255Z",
+      "isLocked": false,
+      "lockedUntil": null
+    }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "Verify Supabase and Buttons",
+      "description": "Testing task creation",
+      "status": "pending",
+      "priority": "medium",
+      "dueDate": null,
+      "createdAt": "2026-09-15T21:15:19.721Z",
+      "updatedAt": "2026-09-15T21:15:19.721Z"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "title": "asdf",
+      "description": "sdf",
+      "status": "pending",
+      "priority": "medium",
+      "dueDate": "2026-09-17",
+      "createdAt": "2026-09-16T08:47:09.020Z",
+      "updatedAt": "2026-09-16T08:47:31.842Z"
+    },
+    {
+      "id": 3,
+      "userId": 2,
+      "title": "asdf",
+      "description": "asdf",
+      "status": "pending",
+      "priority": "medium",
+      "dueDate": "2026-09-15",
+      "createdAt": "2026-09-16T08:47:46.941Z",
+      "updatedAt": "2026-09-16T08:47:46.941Z"
+    }
+  ],
+  "loginAttempts": [],
+  "nextUserId": 5,
+  "nextTaskId": 4
+}

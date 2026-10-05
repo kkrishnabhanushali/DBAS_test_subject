@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Secure Task Manager Dashboard — Manage your tasks securely">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Dashboard — SecureTask</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">🛡️</div>
+        <span class="sidebar-logo-text">SecureTask</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main</div>
+        <button class="nav-item active" data-view="tasks" id="nav-tasks">
+          <span class="nav-item-icon">📋</span>
+          Tasks
+          <span class="nav-item-badge" id="task-count-badge">0</span>
+        </button>
+
+        <div class="nav-section-title">Account</div>
+        <button class="nav-item" data-view="profile" id="nav-profile">
+          <span class="nav-item-icon">👤</span>
+          Profile
+        </button>
+        <button class="nav-item" data-view="security" id="nav-security">
+          <span class="nav-item-icon">🔐</span>
+          Security
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar" id="sidebar-avatar">?</div>
+          <div class="user-details">
+            <div class="user-name" id="sidebar-username">Loading...</div>
+            <div class="user-email" id="sidebar-email">...</div>
+          </div>
+        </div>
+        <button class="nav-item" id="logout-btn" style="margin-top: 8px; color: #ef4444;">
+          <span class="nav-item-icon">🚪</span>
+          Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Area -->
+    <div style="display: flex; flex-direction: column; min-height: 100vh;">
+      <!-- Top Bar -->
+      <header class="topbar">
+        <div class="topbar-title">
+          <h1 id="page-title">Tasks</h1>
+          <p id="page-subtitle">Manage your tasks securely</p>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-primary" id="add-task-btn">
+            <span>+</span> New Task
+          </button>
+          <button class="btn btn-icon btn-secondary mobile-menu-btn" id="mobile-menu-btn">
+            ☰
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Tasks View -->
+        <div class="view active" id="tasks-view">
+          <!-- Stats -->
+          <div class="stats-grid">
+            <div class="glass-card stat-card total">
+              <div class="stat-icon">📊</div>
+              <div class="stat-value" id="stat-total">0</div>
+              <div class="stat-label">Total Tasks</div>
+            </div>
+            <div class="glass-card stat-card pending">
+              <div class="stat-icon">⏳</div>
+              <div class="stat-value" id="stat-pending">0</div>
+              <div class="stat-label">Pending</div>
+            </div>
+            <div class="glass-card stat-card progress">
+              <div class="stat-icon">🔄</div>
+              <div class="stat-value" id="stat-progress">0</div>
+              <div class="stat-label">In Progress</div>
+            </div>
+            <div class="glass-card stat-card completed">
+              <div class="stat-icon">✅</div>
+              <div class="stat-value" id="stat-completed">0</div>
+              <div class="stat-label">Completed</div>
+            </div>
+          </div>
+
+          <!-- Tasks List -->
+          <div class="tasks-header">
+            <h2>Your Tasks</h2>
+            <div class="tasks-filters">
+              <button class="filter-btn active" data-filter="all">All</button>
+              <button class="filter-btn" data-filter="pending">Pending</button>
+              <button class="filter-btn" data-filter="in_progress">In Progress</button>
+              <button class="filter-btn" data-filter="completed">Completed</button>
+            </div>
+          </div>
+
+          <div class="task-list" id="task-list">
+            <div class="loading-overlay">
+              <div class="spinner"></div>
+              Loading tasks...
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile View -->
+        <div class="view" id="profile-view">
+          <div class="profile-section">
+            <div class="glass-card profile-card">
+              <div class="profile-header">
+                <div class="profile-avatar" id="profile-avatar">?</div>
+                <div class="profile-info">
+                  <h2 id="profile-display-name">Loading...</h2>
+                  <p id="profile-joined">Member since ...</p>
+                </div>
+              </div>
+
+              <form class="profile-form" id="profile-form" novalidate>
+                <div class="input-group">
+                  <label for="edit-display-name">Display Name</label>
+                  <input type="text" class="input" id="edit-display-name" maxlength="50">
+                </div>
+                <div class="input-group">
+                  <label for="edit-email">Email</label>
+                  <input type="email" class="input" id="edit-email" maxlength="255">
+                </div>
+                <div class="profile-form-actions">
+                  <button type="submit" class="btn btn-primary" id="save-profile-btn">Save Changes</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Security View -->
+        <div class="view" id="security-view">
+          <div class="profile-section">
+            <div class="glass-card profile-card">
+              <h3 class="section-title">Change Password</h3>
+              <p class="section-subtitle">Keep your account secure by using a strong, unique password.</p>
+
+              <form class="profile-form" id="password-form" novalidate>
+                <div class="input-group">
+                  <label for="current-password">Current Password</label>
+                  <input type="password" class="input" id="current-password" autocomplete="current-password" maxlength="128" required>
+                </div>
+                <div class="input-group">
+                  <label for="new-password">New Password</label>
+                  <input type="password" class="input" id="new-password" autocomplete="new-password" maxlength="128" required>
+                  <div class="password-requirements" id="security-password-reqs">
+                    <div class="password-req" data-req="length">
+                      <span class="password-req-icon">○</span> 8+ chars
+                    </div>
+                    <div class="password-req" data-req="lower">
+                      <span class="password-req-icon">○</span> Lowercase
+                    </div>
+                    <div class="password-req" data-req="upper">
+                      <span class="password-req-icon">○</span> Uppercase
+                    </div>
+                    <div class="password-req" data-req="number">
+                      <span class="password-req-icon">○</span> Number
+                    </div>
+                    <div class="password-req" data-req="special">
+                      <span class="password-req-icon">○</span> Special char
+                    </div>
+                  </div>
+                </div>
+                <div class="profile-form-actions">
+                  <button type="submit" class="btn btn-primary" id="change-password-btn">Update Password</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="glass-card profile-card">
+              <h3 class="section-title">Security Features Active</h3>
+              <p class="section-subtitle">Your account is protected by multiple layers of security.</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;">
+                <span class="security-badge" style="margin-top:0;">🔒 Bcrypt Hashing</span>
+                <span class="security-badge" style="margin-top:0;">🛡️ CSRF Protection</span>
+                <span class="security-badge" style="margin-top:0;">⏱️ Rate Limiting</span>
+                <span class="security-badge" style="margin-top:0;">🔑 Secure Sessions</span>
+                <span class="security-badge" style="margin-top:0;">🧱 CSP Headers</span>
+                <span class="security-badge" style="margin-top:0;">🔐 Account Lockout</span>
+                <span class="security-badge" style="margin-top:0;">✅ Input Validation</span>
+                <span class="security-badge" style="margin-top:0;">🚫 XSS Protection</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Add/Edit Task Modal -->
+  <div class="modal-overlay hidden" id="task-modal">
+    <div class="glass-card modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">New Task</h3>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <form class="modal-form" id="task-form" novalidate>
+        <input type="hidden" id="task-edit-id">
+        <div class="input-group">
+          <label for="task-title">Title</label>
+          <input type="text" class="input" id="task-title" placeholder="What needs to be done?" maxlength="200" required>
+        </div>
+        <div class="input-group">
+          <label for="task-description">Description</label>
+          <textarea class="input" id="task-description" placeholder="Add details (optional)" maxlength="2000"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="input-group">
+            <label for="task-priority">Priority</label>
+            <select class="input" id="task-priority">
+              <option value="low">🟢 Low</option>
+              <option value="medium" selected>🔵 Medium</option>
+              <option value="high">🟠 High</option>
+              <option value="urgent">🔴 Urgent</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="task-due-date">Due Date</label>
+            <input type="date" class="input" id="task-due-date">
+          </div>
+        </div>
+        <div class="input-group" id="task-status-group" style="display: none;">
+          <label for="task-status">Status</label>
+          <select class="input" id="task-status">
+            <option value="pending">⏳ Pending</option>
+            <option value="in_progress">🔄 In Progress</option>
+            <option value="completed">✅ Completed</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="modal-submit">Create Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirm Delete Modal -->
+  <div class="modal-overlay hidden" id="delete-modal">
+    <div class="glass-card modal" style="max-width: 400px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Delete Task</h3>
+        <button class="modal-close" id="delete-modal-close">✕</button>
+      </div>
+      <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 0.9rem;">
+        Are you sure you want to delete this task? This action cannot be undone.
+      </p>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="delete-cancel">Cancel</button>
+        <button class="btn btn-danger" id="delete-confirm">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/dashboard-init.js"></script>
+</body>
+</html>
